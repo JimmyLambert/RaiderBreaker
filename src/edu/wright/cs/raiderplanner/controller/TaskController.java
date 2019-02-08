@@ -351,9 +351,10 @@ public class TaskController implements Initializable {
 	}
 
 	/**
-	 * Add a new TaskType.
+	 * Remove a TaskType.
 	 */
 	public void removeTaskType() {
+		//TODO: add a loop or code block to warn the user that a TaskType will be removed and break from method if the user cancels
 		int doom = this.taskType.getSelectionModel().getSelectedIndex();
 		this.taskType.getItems().remove(doom);
 		ArrayList<TaskType> temp = TaskType.getTaskDatabase();
