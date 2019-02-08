@@ -43,6 +43,7 @@ public class Person extends VersionControlEntity {
 	private String familyName;
 	private String salutation;
 	private String email;
+	private String major;
 	private boolean familyNameLast = true;
 
 	/**
@@ -238,6 +239,20 @@ public class Person extends VersionControlEntity {
 	 */
 	public boolean getFamilyNameLast() {
 		return familyNameLast;
+	}
+
+	/**
+	 * @return the major
+	 */
+	public String getMajor() {
+		return major;
+	}
+
+	/**
+	 * @param major the major to set
+	 */
+	public void setMajor(String major) {
+		this.major = major;
 	}
 
 	/**
