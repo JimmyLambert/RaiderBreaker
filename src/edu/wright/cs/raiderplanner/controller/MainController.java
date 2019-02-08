@@ -457,8 +457,13 @@ public class MainController {
 	* Launches the default browser to display a URI.
 	*/
 	public static void openHelpPage() {
+		
+		
 		final Button site = new Button("Website");
 		final Button pdf = new Button("user-manual");
+		final Button pdfMITLicense =new Button("MIT Licence");
+		
+		
 		Label tab1 = new Label("RaiderPlanner is an application based off of the Pear Planner "
 				+ "to help students keep"
 				+ " track of assignments and exams, allowing them to achieve their full academic"
@@ -476,18 +481,31 @@ public class MainController {
 				+ " the this address: https://github.com/rsanchez-wsu/RaiderPlanner"
 				+ "\n" + "Planned features include a graduation planner, Pilot integration, and a "
 				+ "schedule sharing feature");
+		
+		Label tab4 = new Label("Follow this to view our MIT license:");
+		
 		tab1.setWrapText(true);
 		tab2.setWrapText(true);
 		tab3.setWrapText(true);
+		tab4.setWrapText(true);
+			
 		VBox splitter = new VBox();
 		splitter.getChildren().add(tab2);
 		splitter.getChildren().add(pdf);
 		splitter.getChildren().add(site);
+			
+		VBox splitter2 = new VBox(); 
+		splitter2.getChildren().add(tab4);
+		splitter2.getChildren().add(pdfMITLicense);
+		
 		TitledPane t1 = new TitledPane("What is RaiderPlanner?",tab1);
 		TitledPane t2 = new TitledPane("Getting Started",splitter);
 		TitledPane t3 = new TitledPane("Whats Next?",tab3);
+		TitledPane t4 = new TitledPane("MIT License", splitter2);
+		
+		
 		Accordion root = new Accordion();
-		root.getPanes().addAll(t1, t2, t3);
+		root.getPanes().addAll(t1, t2, t3, t4);  
 		Stage newStage = new Stage();
 		newStage.setTitle("Raider Helper");
 		Scene scene = new Scene(root,400,300);
@@ -517,6 +535,19 @@ public class MainController {
 				}
 			}
 		});
+		
+		pdfMITLicense.setOnAction((event) -> {
+			if (Desktop.isDesktopSupported()) {
+				try {
+					File myFile = new
+							File("Final Documents/"
+									+ "MITLICENSE.pdf");
+					Desktop.getDesktop().open(myFile);
+				} catch (IOException ex) {
+					System.out.println("Error: MITLICENSE not found");
+				}
+			}
+		});		
 	}
 
 	/**
