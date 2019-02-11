@@ -88,7 +88,9 @@ public class AccountController implements Initializable {
 	 * @return true if the user entered a valid salutation.
 	 */
 	public boolean validateSalutation() {
-		if (!Person.validSalutation(this.salutation.getSelectionModel().getSelectedItem().trim())) {
+		if (this.salutation.getValue() == null ) {
+			return false;
+		} else if (!Person.validSalutation(this.salutation.getSelectionModel().getSelectedItem().trim())) {
 			return false;
 		} else {
 			this.salutation.setStyle("");
@@ -97,9 +99,11 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid name by calling the validateName()
-	 * from the Person Class in Model, which checks that the entered Name only
-	 * contains a combination of spaces and upper/lower case letters and returns
+	 * Determines if the user has made a salutation selection by checking if
+	 * the salutation value is null. then determines if the user has 
+	 * entered a valid name by calling the validateName() from the Person 
+	 * Class in Model, which checks that the entered Name only contains a 
+	 * combination of spaces and upper/lower case letters and returns
 	 * a boolean value. Then sets the style so it is cohesive.
 	 * @return True if the user entered a valid name.
 	 */
