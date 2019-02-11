@@ -58,6 +58,7 @@ public class AccountController implements Initializable {
 	@FXML private GridPane pane;
 	@FXML private Alert invalidInputAlert = new Alert(AlertType.ERROR);
 	@FXML private Alert emptyNameAlert = new Alert(AlertType.CONFIRMATION);
+	@FXML private Alert emptySalutationAlert = new Alert(AlertType.CONFIRMATION);
 
 	private Account account;
 	private boolean success = false;
@@ -174,6 +175,7 @@ public class AccountController implements Initializable {
 		String invalidMessage = "";
 		boolean validSuccess = true;
 		boolean validName = true;
+		boolean noSalutation = false;
 		if (!validateNumber()) {
 			invalidMessage += "Please enter a valid W Number\n";
 			validSuccess = false;
@@ -187,17 +189,32 @@ public class AccountController implements Initializable {
 			validSuccess = false;
 		}
 		if (!validateSalutation()) {
-			invalidMessage += "Please enter a valid salutation\n";
-			validSuccess = false;
+			if (this.salutation.getValue() == null) {
+				if (!this.handleEmptySalutation()) {
+					validSuccess = false;
+				} else {
+					noSalutation = true;
+				}
+			} else {
+				invalidMessage += "Please enter a valid salutation\n";
+				validSuccess = false;
+			}
 		}
 		if (this.fullName.getText().trim().isEmpty()) {
 			if (!this.handleEmptyName()) {
 				validName = false;
 			}
 		}
-		if (validSuccess && validName) {
+		if (validSuccess && validName && !noSalutation) {
 			Person pers = new Person(this.salutation.getSelectionModel().getSelectedItem().trim(),
 					this.fullName.getText().trim(), this.famLast.isSelected());
+			this.account = new Account(pers, this.accountNo.getText().trim());
+			this.success = true;
+			Stage stage = (Stage) this.submit.getScene().getWindow();
+			stage.close();
+		} else if (validSuccess && validName && noSalutation) {
+			String sal = "";
+			Person pers = new Person(sal.trim(), this.fullName.getText().trim(), this.famLast.isSelected());
 			this.account = new Account(pers, this.accountNo.getText().trim());
 			this.success = true;
 			Stage stage = (Stage) this.submit.getScene().getWindow();
@@ -207,6 +224,14 @@ public class AccountController implements Initializable {
 			invalidInputAlert.setContentText(invalidMessage);
 			invalidInputAlert.showAndWait();
 		}
+	}
+
+	/**
+	 * @param trim
+	 */
+	private void print(String trim) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -230,6 +255,17 @@ public class AccountController implements Initializable {
 			return false;
 		}
 	}
+	
+	public boolean handleEmptySalutation() {
+		emptySalutationAlert.setContentText("Are you sure you don't want to add a salutation?");
+		Optional<ButtonType> result = emptySalutationAlert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+		
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
