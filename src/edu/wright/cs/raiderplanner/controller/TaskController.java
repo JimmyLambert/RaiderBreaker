@@ -41,8 +41,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -356,7 +354,6 @@ public class TaskController implements Initializable {
 	 * Remove a TaskType.
 	 */
 	public void removeTaskType() {
-		//TODO: add a loop or code block to warn the user that a TaskType will be removed and break from method if the user cancels
 		int doom = this.taskType.getSelectionModel().getSelectedIndex();
 		this.taskType.getItems().remove(doom);
 		ArrayList<TaskType> temp = TaskType.getTaskDatabase();
@@ -497,7 +494,9 @@ public class TaskController implements Initializable {
 		});
 
 		this.removeTaskType.setOnMousePressed(event -> {
-			removeTaskType();
+			if (UiManager.confirm("Are you sure you want to remove this task type?")) {
+					removeTaskType();
+			}
 		});
 		// =================
 
