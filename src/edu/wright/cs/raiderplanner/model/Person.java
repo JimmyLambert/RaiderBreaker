@@ -346,6 +346,15 @@ public class Person extends VersionControlEntity {
 	public static boolean validName(String name) {
 		return nameRegex.matcher(name).matches();
 	}
+	
+	/**
+	 * Checks whether the given String is a valid major.
+	 * @param major The major to validate
+	 * @return true if the major is valid, false otherwise
+	 */
+	public static boolean validMajor(String major) {
+		return nameRegex.matcher(major).matches();
+	}
 
 	/**
 	 * Checks whether the given String is a valid salutation.

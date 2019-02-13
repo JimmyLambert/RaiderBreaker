@@ -54,6 +54,7 @@ public class AccountController implements Initializable {
 	@FXML private TextField fullName;
 	@FXML private TextField email;
 	@FXML private CheckBox famLast;
+	@FXML private TextField major;
 	@FXML private Button submit;
 	@FXML private GridPane pane;
 	@FXML private Alert invalidInputAlert = new Alert(AlertType.ERROR);
@@ -131,6 +132,26 @@ public class AccountController implements Initializable {
 	}
 
 	/**
+	 * Determines if the user has entered a valid major, checking if the textfield 
+	 * is empty and by calling the validateMajor() from the Person Class in
+	 * Model, which checks that the entered Major only contains a combination
+	 * of spaces and upper/lower case letters and returns a boolean value.
+	 * Then sets the style so it is cohesive.
+	 * @returns True if the user entered a valid name. 
+	 */
+	
+	public boolean validateMajor() {
+		if(this.major.getText().trim().isEmpty()
+				|| Person.validMajor(this.major.getText().trim())) {
+			this.major.setStyle("");
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
+	/**
 	 * Determines if the user has entered a valid account number by checking
 	 * that the length of the text is 7, that the first character is a 'w',
 	 * that the next 3 characters are digits, and that the last 3
@@ -191,6 +212,11 @@ public class AccountController implements Initializable {
 				validName = false;
 			}
 		}
+		if (!validateMajor()) {
+			invalidMessage += "Please enter a valid major\n";
+			validSuccess = false;
+		}			
+		
 		if (validSuccess && validName) {
 			Person pers = new Person(this.salutation.getSelectionModel().getSelectedItem().trim(),
 					this.fullName.getText().trim(), this.famLast.isSelected());
