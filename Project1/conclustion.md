@@ -1,0 +1,1 @@
+One issue I ran into was that pushing and requesting pull requests always defaulted to the master branch, which was a pain because I would need to cancel the pull request, or I would accidentally push it to master.
