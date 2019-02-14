@@ -66,6 +66,14 @@
         <HBox GridPane.rowIndex="3">
             <children>
                 <Region prefHeight="51.0" prefWidth="328.0" />
+                <TextField fx:id="major"  promptText="Major" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </GridPane.margin>
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </HBox.margin>
+                </TextField>                
                 <Button fx:id="submit" defaultButton="true" disable="false" mnemonicParsing="false" onMouseClicked="#handleSubmit" prefHeight="31.0" prefWidth="68.0" text="OK" GridPane.rowIndex="3">
                     <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
